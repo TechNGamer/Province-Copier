@@ -21,6 +21,7 @@ namespace ProvinceCopier.HelperClasses {
 			this.progressBar = progressBar;
 			this.mainUI = mainUI;
 #if DEBUG
+			//This is only ment for debugging purposes only.
 			Log.GetInstence().WriteLine( $"string File1Loc = {this.File1Loc}, File1Name = {File1Name}, string File2Loc =" +
 				$" {this.File2Loc}, string File2Name = {File2Name}, this.Output = {this.Output.Name}, this.progressBar =" +
 				$" {progressBar.Name}" );
@@ -72,38 +73,25 @@ namespace ProvinceCopier.HelperClasses {
 					TextList1.Remove( string1 );
 					TextList2.Remove( string1 );
 				}
-
-				/*
-				//Just logs which lines it's comparing.
-				Log.GetInstence().WriteLine( $"Comparing \"{string1}\" and \"{string2}\" together, line is at {line}" );
-
-				//Testing to see if the lines are different and if they are, output it to the output box.
-				if(string1.CompareTo(string2) != 0 ) {
-					ForOutputBox.Append( $"\nDifferent line {( line++ )}\n\t{File1Name}: {string1}\n\t{File2Name}: {string2}" );
-				}
-				*/
-				//Removes the strings from the ArrayList and increments the progress done.
-				//TextList1.Remove( string1 );
-				//TextList2.Remove( string2 );
 				mainUI.IncrementPercentDone( 1, progressBar );
 			}
 
 			//Checks to see if either ArrayList is empty, and if not, output their remaining set to the output.
 			if(TextList1.Count != 0 ) {
-				ForOutputBox.AppendLine( $"\nExtra lines from [original]{File1Name}:" );
+				ForOutputBox.AppendLine( $"\n\tExtra lines from [original]{File1Name}:" );
 				foreach(string str in TextList1 ) {
-					ForOutputBox.Append( $"\n{str}" );
+					ForOutputBox.AppendLine( $"\t\t{str}" );
 				}
 			}
 			if(TextList2.Count != 0 ) {
-				ForOutputBox.AppendLine( $"\nExtra lines from [modified]{File2Name}:" );
+				ForOutputBox.AppendLine( $"\n\tExtra lines from [modified]{File2Name}:" );
 				foreach( string str in TextList2 ) {
-					ForOutputBox.Append( $"\n{str}" );
+					ForOutputBox.AppendLine( $"\t\t{str}" );
 				}
 			}
 
 			//Changes the text in the output.
-			Output.Text = ForOutputBox.ToString();
+			Output.Text = ForOutputBox.ToString().Trim();
 		}
 
 		private void AddStringToList(string text, ArrayList list ) {
