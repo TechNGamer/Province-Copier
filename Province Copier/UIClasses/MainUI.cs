@@ -41,13 +41,16 @@ namespace ProvinceCopier {
 		}
 
 		public void IncrementPercentDone(int done, ProgressBar progressBar ) {
-#if DEBUG
-			Log.GetInstence().WriteLine( "IncrementPercentDone method was activated. Increment was " + done + " on " + progressBar.Name
-				+ "\nPercent done is now: "	+ ( ( ( float ) transferFileProgressBar.Value / transferFileProgressBar.Maximum ) * 100 )
-				.ToString( "###.##" ) + "%" );
-#endif
 			progressBar.Increment( done );
+#if DEBUG
+			Log.GetInstence().WriteLine( $"IncrementPercentDone was called. New percent is" +
+				$" {(progressBar.Value / (float)progressBar.Maximum).ToString("###.##%")}" );
+#endif
 			//PercentLabel.Text = (( (float)progressBar.Value / progressBar.Maximum ) * 100).ToString("###.##") + "%";
+		}
+
+		public void ChangeProgressValue( int value, ProgressBar progressBar ) {
+			progressBar.Value = value;
 		}
 
 		//Start of the Utilities Tab

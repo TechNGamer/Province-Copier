@@ -38,31 +38,40 @@ namespace ProvinceCopier.HelperClasses {
 			AddStringToList( File.ReadAllText( File1Loc ), TextList1 );
 			AddStringToList( File.ReadAllText( File2Loc ), TextList2 );
 
+			TextList1.Sort();
+			TextList2.Sort();
+
 			mainUI.ChangeProgressBarState( ProgressBarStyle.Continuous, progressBar );
 
 			//StringBuilder is used for it's .Append method.
 			StringBuilder ForOutputBox = new StringBuilder( $"Differences in {File1Name} and {File2Name}:" );
 
 			//To see which file is the shorted aand to use it as the length.
-			int progressLength = TextList1.Count < TextList2.Count ? TextList1.Count : TextList2.Count;
+			//int progressLength = TextList1.Count < TextList2.Count ? TextList1.Count : TextList2.Count;
 
-			mainUI.SetMaxNumber( progressLength, progressBar );
+			mainUI.SetMaxNumber( TextList1.Count * TextList2.Count, progressBar );
 
 			//To keep track of the line it's on.
-			int line = 1;
+			int line = 0;
 
 			//While loop used since a for loop would have to be constantly reset to 0.
-			while( TextList1.Count != 0 && TextList2.Count != 0 ) {
+			for( int i = 0; i < TextList1.Count; i++ ) {
 
 				//Read MSDev for this line.
 				Application.DoEvents();
 
 				//In order to use string comparison, they have to be converted from object to string.
-				string string1 = ( string ) TextList1[0], string2 = "";
+				string string1 = ( string ) TextList1[i], string2 = "";
 				bool matchFound = false;
-
-				for( int i = 0; i < TextList2.Count; i++ ) {
-					string2 = ( string ) TextList2[i];
+				#if DEBUG
+				Log.GetInstence().WriteLine( $"While loop pass numbeer {line++}." );
+				#endif
+				for( int c = 0; c < TextList2.Count; c++ ) {
+					Application.DoEvents();
+					#if DEBUG
+					Log.GetInstence().WriteLine( $"For loop pass {c}." );
+					#endif
+					string2 = ( string ) TextList2[c];
 					if( string2.Equals( string1 ) ) {
 						matchFound = true;
 						break;
@@ -70,8 +79,13 @@ namespace ProvinceCopier.HelperClasses {
 				}
 
 				if( matchFound ) {
+					#if DEBUG
+					Log.GetInstence().WriteLine( $"Removing \"{string1}\" from TextList1 and TextList2. " +
+						$"Left in TextList1 is {TextList1.Count} and in TextList2 is {TextList2.Count}." );
+					#endif
 					TextList1.Remove( string1 );
 					TextList2.Remove( string1 );
+					i--;
 				}
 				mainUI.IncrementPercentDone( 1, progressBar );
 			}
@@ -91,13 +105,16 @@ namespace ProvinceCopier.HelperClasses {
 			}
 
 			//Changes the text in the output.
+			mainUI.SetMaxNumber( 1, progressBar );
+			mainUI.ChangeProgressValue( 1, progressBar );
 			Output.Text = ForOutputBox.ToString().Trim();
 		}
 
 		private void AddStringToList(string text, ArrayList list ) {
+			string[] Remove = { "{ [new line]", "} [new line]", "[new line]", "", "#" };
 			char[] UnixLineEnding = { '\n' };
 
-			string temp = text.Replace( "\r\n", "\n" ).Replace( "\r", "\n" ).Replace( "\n", " [new line]\n" );
+			string temp = text.Replace( "\r\n", "\n" ).Replace( "\r", "\n" ).Replace( "\n", $" {Remove[2]}\n" );
 
 			string[] texts = temp.Split( UnixLineEnding, StringSplitOptions.None );
 
@@ -106,16 +123,23 @@ namespace ProvinceCopier.HelperClasses {
 			}
 
 			//Looks for any [new line] ends along with rouge curly brakets.
-			for(int i = 0; i < list.Count; i++ ) {
+			for( int i = 0; i < list.Count; i++ ) {
+				Application.DoEvents();
 				string str = ( string ) list[i];
 				str.Trim();
-				if( str.Equals( "} [new line]" ) || str.Equals( "{ [new line]" ) || str.Equals( " [new line]" )
-					|| str.Equals( "" ) ) {
+#if DEBUG
+				Log.GetInstence().WriteLine( $"Testing if {str} is equal to {Remove[0]} or {Remove[1]} or {Remove[2]} or '{Remove[3]}'" +
+					$" or {Remove[4]} and the result is " +
+					(str.Equals( Remove[0] ) || str.Equals( Remove[1] ) || str.Equals( Remove[2] ) || str.Equals( Remove[3] )
+					|| str.Equals( Remove[4])) + "." );
+#endif
+				if( str.Equals( Remove[0] ) || str.Equals( Remove[1] ) || str.Equals( Remove[2] )
+					|| str.Equals( Remove[3] ) || str.StartsWith( Remove[4] ) ) {
 					list.RemoveAt( i );
-					i-=2;
+					i--;
 					continue;
-				} else if( str.Contains("[new line]" ) ) {
-					list[i] = str.Remove( str.LastIndexOf( "[new line]" ) ).Trim();
+				} else if( str.Contains( Remove[2] ) ) {
+					list[i] = str.Remove( str.LastIndexOf( Remove[2] ) ).Trim();
 				}
 			}
 		}

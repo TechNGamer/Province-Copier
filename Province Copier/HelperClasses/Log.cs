@@ -30,11 +30,10 @@ namespace ProvinceCopier.HelperClasses {
 			}
 
 			for( uint i = 0; i < 255; i++ ) {
-				LogFiles[i] = Path.Combine( Program.AppData, i + ".log" );
+				LogFiles[i] = Path.Combine( Program.AppData, $"{i}.log" );
 
 				if( File.Exists( LogFiles[i] ) ) {
 					File.Delete( LogFiles[i] );
-					//File.Create( LogFiles[i] );
 				}
 
 				LogFilesInfo[i] = new FileInfo( LogFiles[i] );
@@ -53,14 +52,20 @@ namespace ProvinceCopier.HelperClasses {
 			}
 
 			if( LogFilesInfo[index].Length > 267386880 ) {
-				LogFile.WriteLine( "End of log file " + index + ". Move to log file " + ( index + 1 ) + "." );
+				LogFile.WriteLine( $"End of log file {index}. Move to log file {( index + 1 )}." );
 				LogFile = File.CreateText( LogFiles[++index] );
 			}
-
-			LogFile.Write( DateTime.Now.ToString( "yyyy-MM-dd HH:mm:sszzz" ) + ": " + text );
+#if DEBUG
+			string NewText = $"{DateTime.Now.ToString( "yyyy-MM-dd HH:mm:sszzz" )}: {text}";
+			LogFile.Write( NewText );
+			Console.Write( NewText );
+#else
+			LogFile.Write( $"{DateTime.Now.ToString( "yyyy-MM-dd HH:mm:sszzz" )}: {text}" );
+#endif
 			LogFilesInfo[index].Refresh();
 		}
 
+		#region WriteOverrides
 		public void Write( byte number ) {
 			Write( number.ToString() );
 		}
@@ -114,7 +119,7 @@ namespace ProvinceCopier.HelperClasses {
 		}
 
 		public void WriteLine( string text ) {
-			Write( text + "\n" );
+			Write( $"{text}\n" );
 		}
 
 		public void WriteLine( byte number ) {
@@ -172,6 +177,6 @@ namespace ProvinceCopier.HelperClasses {
 		public void Close() {
 			LogFile.Close();
 		}
-
+		#endregion
 	}
 }
