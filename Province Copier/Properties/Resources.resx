@@ -134,4 +134,13 @@
     <value>..\Province Copier SaveSpace Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>To be used as the icon for savespace files.</comment>
   </data>
+  <data name="VersionMajor" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="VersionMinor" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="VersionPatch" xml:space="preserve">
+    <value>1</value>
+  </data>
 </root>

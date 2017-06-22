@@ -109,5 +109,32 @@ namespace ProvinceCopier.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2.
+        /// </summary>
+        internal static string VersionMajor {
+            get {
+                return ResourceManager.GetString("VersionMajor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.
+        /// </summary>
+        internal static string VersionMinor {
+            get {
+                return ResourceManager.GetString("VersionMinor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.
+        /// </summary>
+        internal static string VersionPatch {
+            get {
+                return ResourceManager.GetString("VersionPatch", resourceCulture);
+            }
+        }
     }
 }

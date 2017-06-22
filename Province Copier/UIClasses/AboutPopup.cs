@@ -10,7 +10,7 @@ namespace ProvinceCopier.UIClasses {
 			this.Text = String.Format( "About {0}", AssemblyTitle );
 			this.labelProductName.Text = "Province Copier";
 			this.LabelCreatedBy.Text = "Created by Tech N Gamer";
-			this.LableVersion.Text = $"Version {VersionNum}";
+			this.LableVersion.Text = "Version 2.1.1";
 			this.LicensingType.Text = "MIT License";
 			this.textBoxDescription.Text = "This software was made to help EUIV modders pull provences from the EUIV" +
 				" directory. This software is licensed under the MIT License.";
@@ -27,12 +27,6 @@ namespace ProvinceCopier.UIClasses {
 					}
 				}
 				return System.IO.Path.GetFileNameWithoutExtension( Assembly.GetExecutingAssembly().CodeBase );
-			}
-		}
-		public string VersionNum {
-			get {
-				ResourceManager rm = new ResourceManager( "Resources.Strings", GetType().Assembly );
-				return $"{rm.GetString( "VersionMajor" )}.{rm.GetString( "VersionMinor" )}.{rm.GetString( "VersionPatch" )}";
 			}
 		}
 		#endregion
