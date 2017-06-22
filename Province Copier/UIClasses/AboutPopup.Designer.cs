@@ -25,9 +25,9 @@
 			this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			this.logoPictureBox = new System.Windows.Forms.PictureBox();
 			this.labelProductName = new System.Windows.Forms.Label();
-			this.labelVersion = new System.Windows.Forms.Label();
-			this.labelCopyright = new System.Windows.Forms.Label();
-			this.labelCompanyName = new System.Windows.Forms.Label();
+			this.LabelCreatedBy = new System.Windows.Forms.Label();
+			this.LableVersion = new System.Windows.Forms.Label();
+			this.LicensingType = new System.Windows.Forms.Label();
 			this.textBoxDescription = new System.Windows.Forms.TextBox();
 			this.okButton = new System.Windows.Forms.Button();
 			this.tableLayoutPanel.SuspendLayout();
@@ -42,9 +42,9 @@
 			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52.84553F));
 			this.tableLayoutPanel.Controls.Add(this.logoPictureBox, 0, 0);
 			this.tableLayoutPanel.Controls.Add(this.labelProductName, 1, 0);
-			this.tableLayoutPanel.Controls.Add(this.labelVersion, 1, 1);
-			this.tableLayoutPanel.Controls.Add(this.labelCopyright, 1, 2);
-			this.tableLayoutPanel.Controls.Add(this.labelCompanyName, 1, 3);
+			this.tableLayoutPanel.Controls.Add(this.LabelCreatedBy, 1, 1);
+			this.tableLayoutPanel.Controls.Add(this.LableVersion, 1, 2);
+			this.tableLayoutPanel.Controls.Add(this.LicensingType, 1, 3);
 			this.tableLayoutPanel.Controls.Add(this.textBoxDescription, 1, 4);
 			this.tableLayoutPanel.Controls.Add(this.okButton, 1, 5);
 			this.tableLayoutPanel.Location = new System.Drawing.Point(9, 9);
@@ -83,41 +83,41 @@
 			this.labelProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.labelProductName.Click += new System.EventHandler(this.labelProductName_Click);
 			// 
-			// labelVersion
+			// LabelCreatedBy
 			// 
-			this.labelVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelVersion.Location = new System.Drawing.Point(237, 26);
-			this.labelVersion.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-			this.labelVersion.MaximumSize = new System.Drawing.Size(0, 17);
-			this.labelVersion.Name = "labelVersion";
-			this.labelVersion.Size = new System.Drawing.Size(252, 17);
-			this.labelVersion.TabIndex = 0;
-			this.labelVersion.Text = "Created by Tech N Gamer";
-			this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LabelCreatedBy.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LabelCreatedBy.Location = new System.Drawing.Point(237, 26);
+			this.LabelCreatedBy.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
+			this.LabelCreatedBy.MaximumSize = new System.Drawing.Size(0, 17);
+			this.LabelCreatedBy.Name = "LabelCreatedBy";
+			this.LabelCreatedBy.Size = new System.Drawing.Size(252, 17);
+			this.LabelCreatedBy.TabIndex = 0;
+			this.LabelCreatedBy.Text = "Created by Tech N Gamer";
+			this.LabelCreatedBy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// labelCopyright
+			// LableVersion
 			// 
-			this.labelCopyright.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelCopyright.Location = new System.Drawing.Point(237, 52);
-			this.labelCopyright.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-			this.labelCopyright.MaximumSize = new System.Drawing.Size(0, 17);
-			this.labelCopyright.Name = "labelCopyright";
-			this.labelCopyright.Size = new System.Drawing.Size(252, 17);
-			this.labelCopyright.TabIndex = 21;
-			this.labelCopyright.Text = "No Copyright";
-			this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LableVersion.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LableVersion.Location = new System.Drawing.Point(237, 52);
+			this.LableVersion.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
+			this.LableVersion.MaximumSize = new System.Drawing.Size(0, 17);
+			this.LableVersion.Name = "LableVersion";
+			this.LableVersion.Size = new System.Drawing.Size(252, 17);
+			this.LableVersion.TabIndex = 21;
+			this.LableVersion.Text = "Version 2.1.1";
+			this.LableVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// labelCompanyName
+			// LicensingType
 			// 
-			this.labelCompanyName.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelCompanyName.Location = new System.Drawing.Point(237, 78);
-			this.labelCompanyName.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-			this.labelCompanyName.MaximumSize = new System.Drawing.Size(0, 17);
-			this.labelCompanyName.Name = "labelCompanyName";
-			this.labelCompanyName.Size = new System.Drawing.Size(252, 17);
-			this.labelCompanyName.TabIndex = 22;
-			this.labelCompanyName.Text = "MIT License";
-			this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LicensingType.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LicensingType.Location = new System.Drawing.Point(237, 78);
+			this.LicensingType.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
+			this.LicensingType.MaximumSize = new System.Drawing.Size(0, 17);
+			this.LicensingType.Name = "LicensingType";
+			this.LicensingType.Size = new System.Drawing.Size(252, 17);
+			this.LicensingType.TabIndex = 22;
+			this.LicensingType.Text = "MIT License";
+			this.LicensingType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// textBoxDescription
 			// 
@@ -172,9 +172,9 @@
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
 		private System.Windows.Forms.PictureBox logoPictureBox;
 		private System.Windows.Forms.Label labelProductName;
-		private System.Windows.Forms.Label labelVersion;
-		private System.Windows.Forms.Label labelCopyright;
-		private System.Windows.Forms.Label labelCompanyName;
+		private System.Windows.Forms.Label LabelCreatedBy;
+		private System.Windows.Forms.Label LableVersion;
+		private System.Windows.Forms.Label LicensingType;
 		private System.Windows.Forms.TextBox textBoxDescription;
 		private System.Windows.Forms.Button okButton;
 	}
