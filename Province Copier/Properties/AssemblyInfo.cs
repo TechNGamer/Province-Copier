@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle( "Province Copier" )]
 [assembly: AssemblyDescription( "Used to help Europa Universalis IV province modders/country makers to get the province files using their numbers. Created by Tech N Gamer." )]
 [assembly: AssemblyConfiguration( "" )]
-[assembly: AssemblyCompany( "" )]
+[assembly: AssemblyCompany( "N/A" )]
 [assembly: AssemblyProduct( "Province Copier" )]
 [assembly: AssemblyCopyright( "Copyright ©  2017" )]
 [assembly: AssemblyTrademark( "" )]

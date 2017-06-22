@@ -7,8 +7,6 @@ using System.IO;
 namespace ProvinceCopier.HelperClasses {
 	class FileCompare {
 
-		// TODO:Change comparing method to one where it looks for same code in new file to the origional file and only list changes that it finds.
-
 		private string File1Loc, File2Loc, File1Name, File2Name;
 		private RichTextBox Output;
 		private ProgressBar progressBar;
@@ -59,9 +57,23 @@ namespace ProvinceCopier.HelperClasses {
 				Application.DoEvents();
 
 				//In order to use string comparison, they have to be converted from object to string.
-				string string1 = ( string ) TextList1[0];
-				string string2 = ( string ) TextList2[0];
+				string string1 = ( string ) TextList1[0], string2 = "";
+				bool matchFound = false;
 
+				for( int i = 0; i < TextList2.Count; i++ ) {
+					string2 = ( string ) TextList2[i];
+					if( string2.Equals( string1 ) ) {
+						matchFound = true;
+						break;
+					}
+				}
+
+				if( matchFound ) {
+					TextList1.Remove( string1 );
+					TextList2.Remove( string1 );
+				}
+
+				/*
 				//Just logs which lines it's comparing.
 				Log.GetInstence().WriteLine( $"Comparing \"{string1}\" and \"{string2}\" together, line is at {line}" );
 
@@ -69,20 +81,22 @@ namespace ProvinceCopier.HelperClasses {
 				if(string1.CompareTo(string2) != 0 ) {
 					ForOutputBox.Append( $"\nDifferent line {( line++ )}\n\t{File1Name}: {string1}\n\t{File2Name}: {string2}" );
 				}
+				*/
 				//Removes the strings from the ArrayList and increments the progress done.
-				TextList1.Remove( string1 );
-				TextList2.Remove( string2 );
+				//TextList1.Remove( string1 );
+				//TextList2.Remove( string2 );
 				mainUI.IncrementPercentDone( 1, progressBar );
 			}
 
 			//Checks to see if either ArrayList is empty, and if not, output their remaining set to the output.
 			if(TextList1.Count != 0 ) {
-				ForOutputBox.AppendLine( $"Extra lines from {File1Name}" );
+				ForOutputBox.AppendLine( $"\nExtra lines from [original]{File1Name}:" );
 				foreach(string str in TextList1 ) {
 					ForOutputBox.Append( $"\n{str}" );
 				}
-			} else if(TextList2.Count != 0 ) {
-				ForOutputBox.AppendLine( $"Extra lines from {File2Name}" );
+			}
+			if(TextList2.Count != 0 ) {
+				ForOutputBox.AppendLine( $"\nExtra lines from [modified]{File2Name}:" );
 				foreach( string str in TextList2 ) {
 					ForOutputBox.Append( $"\n{str}" );
 				}
@@ -102,12 +116,20 @@ namespace ProvinceCopier.HelperClasses {
 			foreach( string str in texts ) {
 					list.Add( str.Trim() );
 			}
-#if DEBUG == false
+
+			//Looks for any [new line] ends along with rouge curly brakets.
 			for(int i = 0; i < list.Count; i++ ) {
 				string str = ( string ) list[i];
-				list[i] = str.Remove( str.LastIndexOf( " [new line]" ) ).Trim();
+				str.Trim();
+				if( str.Equals( "} [new line]" ) || str.Equals( "{ [new line]" ) || str.Equals( " [new line]" )
+					|| str.Equals( "" ) ) {
+					list.RemoveAt( i );
+					i-=2;
+					continue;
+				} else if( str.Contains("[new line]" ) ) {
+					list[i] = str.Remove( str.LastIndexOf( "[new line]" ) ).Trim();
+				}
 			}
-#endif
 		}
 	}
 }

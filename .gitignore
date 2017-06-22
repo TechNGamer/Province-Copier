@@ -60,3 +60,10 @@ Test Savespaces/Regular Debug.savespace
 Test Savespaces/Regular.savespace
 Test Savespaces/Universal.savespace
 .vs/Province Copier/v15/.suo
+*.exe
+Builds/Debug/Province Copier.exe.CodeAnalysisLog.xml
+Builds/Debug/Province Copier.exe.config
+Builds/Debug/Province Copier.exe.lastcodeanalysissucceeded
+Builds/Debug/Province Copier.pdb
+Builds/Release/Province Copier.exe.config
+*.exe
