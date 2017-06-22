@@ -1,2 +1,2 @@
 # Province-Copier
-A tool for Europa Universallies Modders to get provinces quickly from the install directory. This program does contain a second program in it called comparer which is still a work in progress from me. Please note that in order to download this software, goto Province Copier/bin/Release, going to the Province Copier/bin/Debug is an unstable version/still-in-dev executable. That executable should only be downloaded to see what has changed.
+A tool for Europa Universallies Modders to get provinces quickly from the install directory. This program does contain a second program in it called comparer which is still a work in progress from me.
