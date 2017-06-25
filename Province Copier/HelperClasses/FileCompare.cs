@@ -92,16 +92,10 @@ namespace ProvinceCopier.HelperClasses {
 
 			//Checks to see if either ArrayList is empty, and if not, output their remaining set to the output.
 			if(TextList1.Count != 0 ) {
-				ForOutputBox.AppendLine( $"\n\tExtra lines from [original]{File1Name}:" );
-				foreach(string str in TextList1 ) {
-					ForOutputBox.AppendLine( $"\t\t{str}" );
-				}
+				PrintExtras( TextList1, ForOutputBox, false );
 			}
 			if(TextList2.Count != 0 ) {
-				ForOutputBox.AppendLine( $"\n\tExtra lines from [modified]{File2Name}:" );
-				foreach( string str in TextList2 ) {
-					ForOutputBox.AppendLine( $"\t\t{str}" );
-				}
+				PrintExtras( TextList1, ForOutputBox, true );
 			}
 
 			//Changes the text in the output.
@@ -111,7 +105,7 @@ namespace ProvinceCopier.HelperClasses {
 		}
 
 		private void AddStringToList(string text, ArrayList list ) {
-			string[] Remove = { "{ [new line]", "} [new line]", "[new line]", "", "#" };
+			string[] Remove = { "{[new line]", "}[new line]", "[new line]", "", "#" };
 			char[] UnixLineEnding = { '\n' };
 
 			string temp = text.Replace( "\r\n", "\n" ).Replace( "\r", "\n" ).Replace( "\n", $" {Remove[2]}\n" );
@@ -126,20 +120,45 @@ namespace ProvinceCopier.HelperClasses {
 			for( int i = 0; i < list.Count; i++ ) {
 				Application.DoEvents();
 				string str = ( string ) list[i];
-				str.Trim();
+				try {
+					str = str.Remove( str.LastIndexOf( Remove[2] ) ).Trim() + Remove[2];
+#pragma warning disable CS0168 // Variable is declared but never used
+				} catch ( Exception e ) {
+#pragma warning restore CS0168 // Variable is declared but never used
+					str = str.Trim() + Remove[2];
+				}
 #if DEBUG
 				Log.GetInstence().WriteLine( $"Testing if {str} is equal to {Remove[0]} or {Remove[1]} or {Remove[2]} or '{Remove[3]}'" +
 					$" or {Remove[4]} and the result is " +
 					(str.Equals( Remove[0] ) || str.Equals( Remove[1] ) || str.Equals( Remove[2] ) || str.Equals( Remove[3] )
 					|| str.Equals( Remove[4])) + "." );
+				System.Threading.Thread.Sleep( 250 );
 #endif
 				if( str.Equals( Remove[0] ) || str.Equals( Remove[1] ) || str.Equals( Remove[2] )
-					|| str.Equals( Remove[3] ) || str.StartsWith( Remove[4] ) ) {
+					|| str.Equals( Remove[3] ) || str.StartsWith( Remove[4] ) || str.Equals( UnixLineEnding[0] + Remove[2] ) ) {
 					list.RemoveAt( i );
 					i--;
 					continue;
 				} else if( str.Contains( Remove[2] ) ) {
 					list[i] = str.Remove( str.LastIndexOf( Remove[2] ) ).Trim();
+				}
+			}
+		}
+
+		private void PrintExtras(ArrayList list, StringBuilder builder, bool isModified ) {
+			if(isModified)
+				builder.AppendLine( $"\n\tExtra lines from [modified]{File2Name}:" );
+			else
+				builder.AppendLine( $"\n\tExtra lines from [original]{File1Name}:" );
+			string prevLine = "";
+			int appearTime = 0;
+			foreach( string str in list ) {
+				if( str.Equals( prevLine ) ) {
+					appearTime++;
+				} else if( appearTime > 0 ) {
+					builder.AppendLine( $"\t\t{prevLine} (x{appearTime})" );
+				} else {
+					builder.AppendLine( $"\t\t{str}" );
 				}
 			}
 		}
