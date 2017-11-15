@@ -7,11 +7,11 @@ using System.Diagnostics;
 namespace ProvinceCopier.HelperClasses {
 	class Transfer {
 
-		private string copyTo;
+		//private string copyTo;
 		private List<string> installedProvinceFiles;
 		private List<int> provinceNumbers;
-		private Log log;
-		private ProgressBar progressBar;
+		//private Log log;
+		//private ProgressBar progressBar;
 
 		public Transfer( string installDir, string copyTo, string[] provinceNumbers, ProgressBar progressBar ) {
 			log = Log.GetInstence();
@@ -40,7 +40,7 @@ namespace ProvinceCopier.HelperClasses {
 					}
 				}
 			}
-			
+
 			for( int i = 0; i < this.provinceNumbers.Count; i++ ) {
 				for( int j = i + 1; j < this.provinceNumbers.Count; j++ ) {
 					Application.DoEvents();
@@ -82,7 +82,7 @@ namespace ProvinceCopier.HelperClasses {
 			provinceNumbers.Sort();
 
 			mainUI.SetMaxNumber( installedProvinceFiles.Count, progressBar );
-			
+
 			if( !Directory.Exists( copyTo ) ) {
 				Directory.CreateDirectory( copyTo );
 			}
@@ -167,7 +167,7 @@ namespace ProvinceCopier.HelperClasses {
 			if(endSubString == -1 ) {
 				endSubString = file.IndexOf( " " );
 			}
-			if( int.TryParse( file.Substring( 0, endSubString ).Trim(), out temp ) || int.TryParse( file.Substring( 0, endSubString ), out temp) ) { 
+			if( int.TryParse( file.Substring( 0, endSubString ).Trim(), out temp ) || int.TryParse( file.Substring( 0, endSubString ), out temp) ) {
 				return temp;
 			}
 
