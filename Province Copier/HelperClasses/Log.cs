@@ -47,7 +47,7 @@ namespace ProvinceCopier.HelperClasses {
 		public void Write( string text ) {
 			if( index + 1 > UInt16.MaxValue ) {
 				if( !errorMessageDisplayed ) {
-					MessageBox.Show( "Goddamn it what are you trying to do? Break my program? No more logs for you." );
+					MessageBox.Show( "Logging has been disabled." );
 				}
 				return;
 			}
